@@ -3,14 +3,16 @@ import Home from "./pages/Home"
 import Footer from "./components/Footer"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
+import Cart from "./components/Cart"
 
 function App() {
   return (
     <>
       <Navbar />
-      {/* <Home /> */}
+      {/*<Home /> */}
       {/*<Register /> */}
-      <Login />
+      {/*<Login /> */}
+      <Cart />
       <Footer />
     </>
   )
