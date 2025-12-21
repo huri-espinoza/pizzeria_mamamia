@@ -4,6 +4,7 @@ import Footer from "./components/Footer"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
 import Cart from "./components/Cart"
+import Pizza from "./components/Pizza"
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       {/*<Home /> */}
       {/*<Register /> */}
       {/*<Login /> */}
-      <Cart />
+      {/* <Cart /> */}
+      <Pizza />
       <Footer />
     </>
   )

@@ -1,7 +1,7 @@
 import { formatNumber } from "../helpers/formatNumber";
 
 const CardPizza = ({ pizza }) => {
-  const {name, img, ingredients, price} = pizza;
+  const { name, img, ingredients, price } = pizza;
   return (
     <div className="card h-100">
       <img src={img} className="card-img-top" alt={name} />
@@ -12,13 +12,11 @@ const CardPizza = ({ pizza }) => {
         <hr />
 
         <p className="text-muted mb-1 text-center">Ingredientes:</p>
-        <p className="text-center">
-          <ul className="list-unstyled">
+        <ul className="text-center list-unstyled">
           {ingredients.map((ingredient, index) => (
             <li key={index}>{ingredient}</li>
           ))}
         </ul>
-        </p>
 
         <hr />
 
