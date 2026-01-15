@@ -1,24 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { AppContext } from "../context/AppContext";
 
 const Pizza = () => {
-  const [pizza, setPizza] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const {pizza, getPizza, loading, addPizza} = useContext(AppContext);
 
   useEffect(() => {
     getPizza();
   }, []);
-
-  const getPizza = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/pizzas/p001");
-      const data = await response.json();
-      setPizza(data);
-    } catch (error) {
-      console.error("Error al obtener pizzas:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="container mt-5" style={{ height: "600px" }}>
@@ -52,7 +40,7 @@ const Pizza = () => {
               Precio: ${pizza.price.toLocaleString("es-CL")}
             </h3>
 
-            <button className="btn btn-dark mt-3">Añadir al carrito</button>
+            <button className="btn btn-dark mt-3" onClick={() => addPizza(pizza)}>Añadir al carrito</button>
           </div>
         </div>
       )}

@@ -1,26 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { AppContext } from "../context/AppContext";
 import Header from "../components/header/Header";
 import CardPizza from "../components/CardPizza";
 
 const Home = () => {
-  const [pizzas, setPizzas] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const {pizzas, getPizzas, loading, addPizza} = useContext(AppContext);
 
   useEffect(() => {
     getPizzas();
   }, []);
-
-  const getPizzas = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/pizzas");
-      const data = await response.json();
-      setPizzas(data);
-    } catch (error) {
-      console.error("Error al obtener pizzas:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>
@@ -35,7 +23,7 @@ const Home = () => {
           <div className="row g-4">
             {pizzas.map((pizza, index) => (
               <div className="col-md-4" key={index}>
-                <CardPizza pizza={pizza} />
+                <CardPizza pizza = { pizza } addPizza = { addPizza } />
               </div>
             ))}
           </div>

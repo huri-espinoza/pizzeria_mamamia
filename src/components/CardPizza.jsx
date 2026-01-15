@@ -1,6 +1,6 @@
 import { formatNumber } from "../helpers/formatNumber";
 
-const CardPizza = ({ pizza }) => {
+const CardPizza = ({ pizza, addPizza }) => {
   const { name, img, ingredients, price } = pizza;
   return (
     <div className="card h-100">
@@ -25,7 +25,7 @@ const CardPizza = ({ pizza }) => {
           <button className="btn btn-outline-secondary btn-sm">
             Ver Más 👀
           </button>
-          <button className="btn btn-dark btn-sm">Añadir 🛒</button>
+          <button className="btn btn-dark btn-sm" onClick={() => addPizza(pizza)}>Añadir 🛒</button>
         </div>
       </div>
     </div>

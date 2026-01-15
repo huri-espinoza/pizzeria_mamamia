@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { formatNumber } from "../helpers/formatNumber";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
-  const total = 25000;
-  const token = true;
+  const {token, total} = useContext(AppContext);
   return (
     <nav className="navbar navbar-dark bg-dark px-4">
       <div className="d-flex align-items-center gap-2">

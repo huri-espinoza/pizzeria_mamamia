@@ -1,5 +1,8 @@
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+
 const Profile = () => {
-  const email = "usuario@correo.cl";
+  const { email } = useContext(AppContext);
 
   return (
     <div className="container mt-5">
