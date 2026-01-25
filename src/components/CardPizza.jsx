@@ -1,7 +1,8 @@
+import { NavLink } from "react-router-dom";
 import { formatNumber } from "../helpers/formatNumber";
 
 const CardPizza = ({ pizza, addPizza }) => {
-  const { name, img, ingredients, price } = pizza;
+  const { id, name, img, ingredients, price } = pizza;
   return (
     <div className="card h-100">
       <img src={img} className="card-img-top" alt={name} />
@@ -22,9 +23,9 @@ const CardPizza = ({ pizza, addPizza }) => {
 
         <h5 className="text-center">Precio: ${formatNumber(price)}</h5>
         <div className="d-flex justify-content-around">
-          <button className="btn btn-outline-secondary btn-sm">
+          <NavLink to={`/pizza/${id}`} className="btn btn-outline-secondary btn-sm">
             Ver Más 👀
-          </button>
+          </NavLink>
           <button className="btn btn-dark btn-sm" onClick={() => addPizza(pizza)}>Añadir 🛒</button>
         </div>
       </div>

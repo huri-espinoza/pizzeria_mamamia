@@ -1,12 +1,10 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import { pizzaCart } from "../assets/js/pizzas";
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const [token, setToken] = useState(false);
   const [email, setEmail] = useState("usuario@correo.cl");
   const [cart, setCart] = useState(pizzaCart);
-  const [pizza, setPizza] = useState(null);
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -15,18 +13,6 @@ const AppProvider = ({ children }) => {
       const response = await fetch("http://localhost:5000/api/pizzas");
       const data = await response.json();
       setPizzas(data);
-    } catch (error) {
-      console.error("Error al obtener pizzas:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getPizza = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/pizzas/p001");
-      const data = await response.json();
-      setPizza(data);
     } catch (error) {
       console.error("Error al obtener pizzas:", error);
     } finally {
@@ -59,16 +45,13 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        token,
-        setToken,
         email,
         setEmail,
         cart,
         addPizza,
         removePizza,
         total,
-        pizza,
-        getPizza,
+        setLoading,
         pizzas,
         getPizzas,
         loading,

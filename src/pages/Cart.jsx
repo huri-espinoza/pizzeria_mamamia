@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { formatNumber } from "../helpers/formatNumber";
-
+import { SessionContext } from "../context/SessionContext";
 
 const Cart = () => {
-  const {cart, addPizza, removePizza, total} = useContext(AppContext);
+  const { cart, addPizza, removePizza, total } = useContext(AppContext);
+  const { token } = useContext(SessionContext);
   return (
     <div className="container mt-4" style={{ height: "620px" }}>
       <h4 className="mb-4">Detalles del pedido:</h4>
@@ -14,12 +15,19 @@ const Cart = () => {
           className="d-flex align-items-center justify-content-between mb-3"
         >
           <div className="d-flex align-items-center gap-3">
-            <img src={pizza.img} alt={pizza.name} width="60" className="rounded" />
+            <img
+              src={pizza.img}
+              alt={pizza.name}
+              width="60"
+              className="rounded"
+            />
             <strong className="text-capitalize">{pizza.name}</strong>
           </div>
 
           <div className="d-flex align-items-center gap-3">
-            <span className="fw-bold text-success">${formatNumber(pizza.price)}</span>
+            <span className="fw-bold text-success">
+              ${formatNumber(pizza.price)}
+            </span>
 
             <button
               className="btn btn-outline-danger btn-sm"
@@ -46,7 +54,10 @@ const Cart = () => {
         Total: <span className="text-success">${formatNumber(total)}</span>
       </h4>
 
-      <button className="btn btn-dark mt-3">Pagar</button>
+      <button className="btn btn-dark mt-3" disabled={!token}>Pagar</button>
+      {!token && (
+        <p className="text-danger mt-2">Debes iniciar sesión para pagar</p>
+      )}
     </div>
   );
 };
