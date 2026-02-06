@@ -1,8 +1,18 @@
-import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { useContext, useEffect, useState } from "react";
+import { SessionContext } from "../context/SessionContext";
 
 const Profile = () => {
-  const { email } = useContext(AppContext);
+  const { token, user, logout, dataSession } = useContext(SessionContext);
+
+  useEffect(() => {
+    if(token) {
+      dataSession();
+    }
+  }, [token]);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <div className="container mt-5">
@@ -13,10 +23,12 @@ const Profile = () => {
               <h2 className="mb-4">Perfil de Usuario</h2>
 
               <p className="fs-5">
-                <strong>Email:</strong> {email}
+                <strong>Email:</strong> {user?.email}
               </p>
 
-              <button className="btn btn-danger mt-3">
+              <button className="btn btn-danger mt-3"
+                onClick={handleLogout}
+              >
                 Cerrar sesión
               </button>
             </div>

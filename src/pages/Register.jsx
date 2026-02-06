@@ -1,15 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { SessionContext } from "../context/SessionContext";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const {error, setError, register} = useContext(SessionContext);
 
   const handleSubmit = () => {
-    setError("");
-    setSuccess("");
+    setError(null);
 
     if (!email || !password || !confirmPassword) {
       setError("All fields are required ❌");
@@ -22,19 +21,13 @@ const Register = () => {
     }
 
     if (password.length < 6 || confirmPassword.length < 6) {
-      setSuccess("");
       setError(
         "Password and Confirm Password must be at least 6 characters ❌"
       );
       return;
     }
 
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-    setError("");
-    setSuccess("Successful registration ✔️");
-    return;
+    register(email, password);
   };
 
   return (
@@ -43,8 +36,6 @@ const Register = () => {
         <div className="col-md-6">
           <h3 className="mb-4">Register</h3>
           {error && <div className="alert alert-danger">{error}</div>}
-          {success && <div className="alert alert-success">{success}</div>}
-
           <form>
             <div className="mb-3">
               <label className="form-label">Email</label>

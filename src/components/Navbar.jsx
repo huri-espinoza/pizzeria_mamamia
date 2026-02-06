@@ -8,8 +8,9 @@ const Navbar = () => {
   const { total } = useContext(AppContext);
   const { token, logout } = useContext(SessionContext);
   const handleLogout = () => {
-    logout(false);
+    logout();
   };
+  
   return (
     <nav className="navbar navbar-dark bg-dark px-4">
       <div className="d-flex align-items-center gap-2">

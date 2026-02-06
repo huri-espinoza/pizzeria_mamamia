@@ -1,29 +1,23 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { SessionContext } from "../context/SessionContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const {error, setError, login} = useContext(SessionContext);
 
   const handleSubmit = () => {
     if (!email || !password) {
-      setSuccess("");
       setError("Email and password are required ❌");
       return;
     }
 
     if(password.length < 6) {
-      setSuccess("");
       setError("Password must be at least 6 characters ❌");
       return;
     }
 
-    setError("");
-    setEmail("");
-    setPassword("");
-    setSuccess("Authentication successful ✔️");
-    return;
+    login(email, password);
   };
 
   return (
@@ -31,10 +25,7 @@ const Login = () => {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h3 className="mb-4">Login</h3>
-
           {error && <div className="alert alert-danger py-2">{error}</div>}
-          {success && <div className="alert alert-success">{success}</div>}
-
           <form>
             <div className="mb-3">
               <label className="form-label">Email</label>

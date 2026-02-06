@@ -4,8 +4,34 @@ import { formatNumber } from "../helpers/formatNumber";
 import { SessionContext } from "../context/SessionContext";
 
 const Cart = () => {
-  const { cart, addPizza, removePizza, total } = useContext(AppContext);
+  const { cart, setCart, addPizza, removePizza, total } = useContext(AppContext);
   const { token } = useContext(SessionContext);
+
+  const checkout = async (cart) => {
+    try {
+      const bearer_token = localStorage.getItem("token");
+      const res = await fetch(`http://localhost:5000/api/checkouts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${bearer_token}`,
+        },
+        body: JSON.stringify({ 
+          cart: cart,
+        }),
+      });
+      const data = await res.json();
+      if (data?.error) {
+        alert(data?.error);
+      } else {
+        setCart([]);
+        alert("Compra realizada con éxito!");
+      }
+    } catch (error) {
+      console.error("Error al realizar pedido", error);
+    }
+  };
+
   return (
     <div className="container mt-4" style={{ height: "620px" }}>
       <h4 className="mb-4">Detalles del pedido:</h4>
@@ -54,7 +80,10 @@ const Cart = () => {
         Total: <span className="text-success">${formatNumber(total)}</span>
       </h4>
 
-      <button className="btn btn-dark mt-3" disabled={!token}>Pagar</button>
+      <button className="btn btn-dark mt-3" disabled={!token}
+      onClick={() => checkout()}>
+        Pagar
+      </button>
       {!token && (
         <p className="text-danger mt-2">Debes iniciar sesión para pagar</p>
       )}

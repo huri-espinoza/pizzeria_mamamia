@@ -48,6 +48,7 @@ const AppProvider = ({ children }) => {
         email,
         setEmail,
         cart,
+        setCart,
         addPizza,
         removePizza,
         total,
